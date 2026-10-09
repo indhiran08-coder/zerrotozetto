@@ -1304,7 +1304,6 @@ export default function App() {
                     <option value="AI & Machine Learning Solutions">AI & Machine Learning Solutions</option>
                     <option value="IoT & Smart Hardware Engineering">IoT & Smart Hardware Engineering</option>
                     <option value="Website & Web Development">Website & Web Development</option>
-                    <option value="Business Software Systems">Business Software Systems (POS / Inventory / CRM)</option>
                     <option value="Mobile App Development">Mobile App Development</option>
                     <option value="College & Academic Projects">College & Academic Projects</option>
                   </select>
