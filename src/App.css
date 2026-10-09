@@ -119,6 +119,23 @@
   cursor: pointer;
 }
 
+.brand-logo-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  object-fit: cover;
+  border: 1.5px solid rgba(96, 165, 250, 0.45);
+  box-shadow: 0 0 18px rgba(37, 99, 235, 0.35);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  background: #000000;
+}
+
+.brand-logo:hover .brand-logo-img {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 26px rgba(59, 130, 246, 0.7);
+  border-color: #60a5fa;
+}
+
 .logo-icon-box {
   width: 42px;
   height: 42px;
@@ -373,6 +390,23 @@
 .orbit-center-core:hover {
   transform: scale(1.1);
   box-shadow: 0 0 60px rgba(37, 99, 235, 0.9);
+}
+
+.orbit-core-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+  margin-bottom: 3px;
+  border: 1px solid rgba(147, 197, 253, 0.5);
+}
+
+.orbit-core-text {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
 }
 
 .orbit-ring-1 {

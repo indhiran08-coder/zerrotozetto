@@ -426,9 +426,7 @@ export default function App() {
       <nav className="navbar">
         <div className="nav-inner">
           <a href="#" className="brand-logo">
-            <div className="logo-icon-box">
-              <Zap size={22} />
-            </div>
+            <img src="./logo.png" alt="ZeroToZetta Logo" className="brand-logo-img" />
             <div className="brand-name">
               ZeroTo<span>Zetta</span>
             </div>
@@ -566,8 +564,8 @@ export default function App() {
 
             {/* Center Core */}
             <div className="orbit-center-core" onClick={() => setSelectedServiceModal(servicesList[0])}>
-              <Zap size={32} />
-              <span style={{ fontSize: '0.75rem', fontWeight: 800, marginTop: '4px' }}>ZEROTOZETTA</span>
+              <img src="./logo.png" alt="ZeroToZetta Logo" className="orbit-core-logo" />
+              <span className="orbit-core-text">ZEROTOZETTA</span>
             </div>
 
             {/* Orbiting Capability Nodes */}
@@ -1350,15 +1348,13 @@ export default function App() {
         <div className="footer-inner">
           <div>
             <div className="brand-logo" style={{ marginBottom: '1rem' }}>
-              <div className="logo-icon-box">
-                <Zap size={22} />
-              </div>
+              <img src="./logo.png" alt="ZeroToZetta Logo" className="brand-logo-img" />
               <div className="brand-name">
                 ZeroTo<span>Zetta</span>
               </div>
             </div>
             <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6, maxWidth: '320px', marginBottom: '1.2rem' }}>
-              Transforming businesses through technology, artificial intelligence, smart IoT hardware, and custom software engineering.
+              From Zero to Zetta — Building the Future. Innovating, engineering, and scaling next-gen AI, smart IoT hardware, and custom software systems.
             </p>
             <div style={{ display: 'flex', gap: '0.8rem' }}>
               <a 
