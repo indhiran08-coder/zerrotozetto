@@ -411,21 +411,6 @@ export default function App() {
       <div className="ambient-glow-2"></div>
       <div className="ambient-glow-3"></div>
 
-      {/* Top Announcement Bar */}
-      <div className="top-bar">
-        <div className="top-bar-inner">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <span className="pulse-dot"></span>
-            <span>ZeroToZetta Technologies • Innovation, Development & Smart Solutions</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-            <span>Erode, Tamil Nadu</span>
-            <span style={{ color: '#1e3a5f' }}>|</span>
-            <a href="mailto:infozerotozetta@gmail.com" style={{ color: '#60a5fa', textDecoration: 'none' }}>infozerotozetta@gmail.com</a>
-          </div>
-        </div>
-      </div>
-
       {/* Navigation Header */}
       <nav className="navbar">
         <div className="nav-inner">
@@ -513,19 +498,13 @@ export default function App() {
       </nav>
 
       {/* Hero Section with Interactive Orbit Graphic */}
-      <section className="section-wrapper" style={{ paddingTop: '3.5rem', paddingBottom: '3rem' }}>
+      <section className="section-wrapper" style={{ paddingTop: '4rem', paddingBottom: '3rem' }}>
         <div className="hero-canvas-grid"></div>
         <div className="hero-content">
           <div>
-            <div className="hero-pill-badge">
-              <span className="pulse-dot"></span>
-              <span style={{ fontWeight: 600 }}>Premium Tech Solutions</span>
-              <span style={{ color: 'rgba(255,255,255,0.3)' }}>•</span>
-              <span style={{ color: '#60a5fa' }}>Erode, Tamil Nadu</span>
-            </div>
-
             <h1 className="hero-h1">
-              Transforming Businesses Through <br />
+              Transforming <br />
+              Businesses Through <br />
               <span className="gradient-text-blue">Technology & AI</span>
             </h1>
 
@@ -546,22 +525,22 @@ export default function App() {
 
             {/* Quick check badges */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.86rem', color: '#94a3b8' }}>
-                <CheckCircle2 size={16} className="text-[#3b82f6]" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem', color: '#94a3b8' }}>
+                <CheckCircle2 size={16} style={{ color: '#3b82f6' }} />
                 <span>AI & Automation</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.86rem', color: '#94a3b8' }}>
-                <CheckCircle2 size={16} className="text-[#3b82f6]" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem', color: '#94a3b8' }}>
+                <CheckCircle2 size={16} style={{ color: '#3b82f6' }} />
                 <span>IoT & Hardware</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.86rem', color: '#94a3b8' }}>
-                <CheckCircle2 size={16} className="text-[#3b82f6]" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.88rem', color: '#94a3b8' }}>
+                <CheckCircle2 size={16} style={{ color: '#3b82f6' }} />
                 <span>24/7 Professional Support</span>
               </div>
             </div>
           </div>
 
-          {/* Interactive Orbit Graphic Visualizer (Phoenova Signature) */}
+          {/* Interactive Orbit Graphic Visualizer */}
           <div className="orbit-container">
             <div className="orbit-ring-2"></div>
             <div className="orbit-ring-1"></div>
@@ -575,7 +554,7 @@ export default function App() {
             {/* Orbiting Capability Nodes */}
             <div 
               className="orbit-node" 
-              style={{ top: '8%', left: '42%' }}
+              style={{ top: '4%', left: '50%', transform: 'translateX(-50%)' }}
               onClick={() => setSelectedServiceModal(servicesList[0])}
             >
               <Brain size={20} />
@@ -584,38 +563,38 @@ export default function App() {
 
             <div 
               className="orbit-node" 
-              style={{ top: '32%', right: '4%' }}
+              style={{ top: '28%', right: '2%' }}
               onClick={() => setSelectedServiceModal(servicesList[1])}
             >
               <Cpu size={20} />
-              <span className="orbit-node-label">IoT PCB</span>
+              <span className="orbit-node-label">IOT PCB</span>
             </div>
 
             <div 
               className="orbit-node" 
-              style={{ bottom: '8%', right: '16%' }}
+              style={{ bottom: '8%', right: '14%' }}
               onClick={() => setSelectedServiceModal(servicesList[2])}
             >
               <Globe size={20} />
-              <span className="orbit-node-label">Web</span>
+              <span className="orbit-node-label">WEB</span>
             </div>
 
             <div 
               className="orbit-node" 
-              style={{ bottom: '8%', left: '16%' }}
+              style={{ bottom: '8%', left: '14%' }}
               onClick={() => setSelectedServiceModal(servicesList[3])}
             >
               <Smartphone size={20} />
-              <span className="orbit-node-label">Mobile</span>
+              <span className="orbit-node-label">MOBILE</span>
             </div>
 
             <div 
               className="orbit-node" 
-              style={{ top: '32%', left: '4%' }}
+              style={{ top: '28%', left: '2%' }}
               onClick={() => setSelectedServiceModal(servicesList[4])}
             >
               <HardDrive size={20} />
-              <span className="orbit-node-label">Academic</span>
+              <span className="orbit-node-label">ACADEMIC</span>
             </div>
           </div>
         </div>
