@@ -24,7 +24,12 @@ import {
   ShieldCheck,
   Award,
   Check,
-  Star
+  Star,
+  ArrowUp,
+  Cookie,
+  FileText,
+  AlertTriangle,
+  Lock
 } from 'lucide-react';
 import './App.css';
 
@@ -54,8 +59,24 @@ export default function App() {
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  // Form submission state
+  // Policy & Cookie Consent Modals
+  const [cookieConsent, setCookieConsent] = useState<'unknown' | 'accepted' | 'declined' | 'custom'>('unknown');
+  const [cookiePreferences, setCookiePreferences] = useState({
+    essential: true,
+    analytics: true,
+    marketing: false
+  });
+  const [activePolicyModal, setActivePolicyModal] = useState<'privacy' | 'terms' | 'cookies' | null>(null);
+
+  // Back to Top & 404 Route state
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [is404, setIs404] = useState(false);
+
+  // Spam protection & form state
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [formError, setFormError] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState('');
+  const [formMountTime] = useState<number>(Date.now());
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -65,6 +86,38 @@ export default function App() {
   });
 
   useEffect(() => {
+    // Check saved cookie preference
+    const savedConsent = localStorage.getItem('zerotozetta_cookie_consent');
+    if (savedConsent) {
+      if (savedConsent === 'accepted' || savedConsent === 'declined') {
+        setCookieConsent(savedConsent as any);
+      } else {
+        try {
+          const parsed = JSON.parse(savedConsent);
+          setCookiePreferences(parsed);
+          setCookieConsent('custom');
+        } catch {
+          setCookieConsent('accepted');
+        }
+      }
+    }
+
+    // Check 404 route
+    if (window.location.hash === '#404' || window.location.pathname === '/404') {
+      setIs404(true);
+    }
+
+    const handleHashChange = () => {
+      setIs404(window.location.hash === '#404');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Scroll listener for Back to Top button
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 320);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     // Smooth counter animation
     const interval = setInterval(() => {
       setStats(prev => ({
@@ -96,8 +149,47 @@ export default function App() {
     return () => {
       clearInterval(interval);
       observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
+
+  // Privacy-respecting analytics event dispatcher
+  const trackAnalyticsEvent = (eventName: string, data?: Record<string, any>) => {
+    if (cookieConsent === 'accepted' || (cookieConsent === 'custom' && cookiePreferences.analytics)) {
+      if (typeof window !== 'undefined' && (window as any).va) {
+        try {
+          (window as any).va('event', { name: eventName, data });
+        } catch {
+          // ignore
+        }
+      }
+    }
+  };
+
+  const handleAcceptAllCookies = () => {
+    setCookieConsent('accepted');
+    setCookiePreferences({ essential: true, analytics: true, marketing: true });
+    localStorage.setItem('zerotozetta_cookie_consent', 'accepted');
+    trackAnalyticsEvent('cookie_consent_accepted');
+  };
+
+  const handleDeclineCookies = () => {
+    setCookieConsent('declined');
+    setCookiePreferences({ essential: true, analytics: false, marketing: false });
+    localStorage.setItem('zerotozetta_cookie_consent', 'declined');
+  };
+
+  const handleSaveCustomCookies = () => {
+    setCookieConsent('custom');
+    localStorage.setItem('zerotozetta_cookie_consent', JSON.stringify(cookiePreferences));
+    setActivePolicyModal(null);
+    trackAnalyticsEvent('cookie_consent_customized');
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const getWhatsAppUrl = () => {
     const phoneNumber = "919843494975";
@@ -114,8 +206,36 @@ export default function App() {
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormStatus('sending');
+    setFormError(null);
 
+    // Spam Protection 1: Honeypot bot trap
+    if (honeypot.trim() !== '') {
+      setFormError('Submission failed security validation. Please chat directly on WhatsApp.');
+      return;
+    }
+
+    // Spam Protection 2: Automated speed test (< 1.2s)
+    const elapsedSeconds = (Date.now() - formMountTime) / 1000;
+    if (elapsedSeconds < 1.2) {
+      setFormError('Please review your project details before sending.');
+      return;
+    }
+
+    // Validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setFormError('Please fill out all required fields marked with *');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setFormError('Please enter a valid email address.');
+      return;
+    }
+
+    trackAnalyticsEvent('contact_form_submitted', { service: formData.service });
+
+    setFormStatus('sending');
     const whatsappUrl = getWhatsAppUrl();
 
     setTimeout(() => {
@@ -1312,6 +1432,24 @@ export default function App() {
               </div>
             ) : (
               <form onSubmit={handleContactSubmit}>
+                {formError && (
+                  <div className="form-error-toast">
+                    <AlertTriangle size={18} />
+                    <span>{formError}</span>
+                  </div>
+                )}
+
+                {/* Honeypot anti-spam bot trap */}
+                <input 
+                  type="text" 
+                  name="website_url_trap" 
+                  className="honeypot-field" 
+                  tabIndex={-1} 
+                  autoComplete="off" 
+                  value={honeypot} 
+                  onChange={e => setHoneypot(e.target.value)} 
+                />
+
                 <div className="form-group">
                   <label className="form-label">Full Name *</label>
                   <input 
@@ -1399,7 +1537,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Comprehensive Footer (Phoenova Layout with ZeroToZetta Brand) */}
+      {/* Comprehensive Footer */}
       <footer className="footer-wrap">
         <div className="footer-inner">
           <div>
@@ -1497,20 +1635,240 @@ export default function App() {
           <div>
             © {new Date().getFullYear()} ZeroToZetta. All rights reserved. Erode, Tamil Nadu.
           </div>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
-            <span>Support</span>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+            <button 
+              onClick={() => setActivePolicyModal('privacy')} 
+              style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.88rem' }}
+            >
+              Privacy Policy
+            </button>
+            <button 
+              onClick={() => setActivePolicyModal('terms')} 
+              style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.88rem' }}
+            >
+              Terms of Service
+            </button>
+            <button 
+              onClick={() => setActivePolicyModal('cookies')} 
+              style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.88rem' }}
+            >
+              Cookie Preferences
+            </button>
+            <a href="#contact" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.88rem' }}>
+              Support
+            </a>
           </div>
         </div>
       </footer>
 
-      {/* Floating Action Button for Mobile Users */}
-      <div className="floating-mobile-action">
-        <a href="#contact" className="floating-action-btn" aria-label="Contact ZeroToZetta">
-          <MessageSquare size={22} />
+      {/* Floating Action Buttons: WhatsApp & Back to Top */}
+      <div className="floating-actions-container">
+        <button 
+          onClick={scrollToTop} 
+          className={`back-to-top-btn ${showBackToTop ? 'visible' : ''}`}
+          aria-label="Back to Top"
+        >
+          <ArrowUp size={20} />
+        </button>
+
+        <a 
+          href="https://wa.me/919843494975" 
+          target="_blank" 
+          rel="noreferrer"
+          className="floating-whatsapp-btn"
+          aria-label="Chat on WhatsApp"
+        >
+          <div className="whatsapp-pulse-ring"></div>
+          <WhatsAppIcon size={28} />
+          <span className="floating-whatsapp-tooltip">Chat with our Engineers</span>
         </a>
       </div>
+
+      {/* Cookie Consent Banner */}
+      {cookieConsent === 'unknown' && (
+        <div className="cookie-banner">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#60a5fa', fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.4rem' }}>
+            <Cookie size={20} />
+            <span>Cookie & Privacy Preferences</span>
+          </div>
+          <p style={{ color: '#94a3b8', fontSize: '0.85rem', lineHeight: 1.5 }}>
+            We use cookies to improve navigation speed, enable direct WhatsApp communication, and analyze anonymous telemetry to deliver optimal engineering experiences.
+          </p>
+          <div className="cookie-actions">
+            <button onClick={handleAcceptAllCookies} className="btn-cookie-accept">
+              Accept All
+            </button>
+            <button onClick={handleDeclineCookies} className="btn-cookie-decline">
+              Decline Non-Essential
+            </button>
+            <button onClick={() => setActivePolicyModal('cookies')} className="btn-cookie-customize">
+              Customize
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Policy, Terms & Cookie Preferences Modal */}
+      {activePolicyModal && (
+        <div className="policy-modal-overlay" onClick={() => setActivePolicyModal(null)}>
+          <div className="policy-modal-dialog" onClick={e => e.stopPropagation()}>
+            <div className="policy-modal-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                {activePolicyModal === 'privacy' && <ShieldCheck size={22} style={{ color: '#60a5fa' }} />}
+                {activePolicyModal === 'terms' && <FileText size={22} style={{ color: '#60a5fa' }} />}
+                {activePolicyModal === 'cookies' && <Cookie size={22} style={{ color: '#60a5fa' }} />}
+                <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff' }}>
+                  {activePolicyModal === 'privacy' && 'Privacy Policy'}
+                  {activePolicyModal === 'terms' && 'Terms of Service'}
+                  {activePolicyModal === 'cookies' && 'Cookie Preferences'}
+                </h3>
+              </div>
+              <button 
+                onClick={() => setActivePolicyModal(null)}
+                style={{ background: 'rgba(255,255,255,0.06)', border: 'none', color: '#cbd5e1', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="policy-modal-body">
+              {activePolicyModal === 'privacy' && (
+                <div>
+                  <div className="policy-section">
+                    <h4>1. Overview & Scope</h4>
+                    <p>At ZeroToZetta Technologies (Erode, Tamil Nadu), we take your privacy seriously. This privacy disclosure outlines how we collect, handle, and protect your information when using our website and technical consulting services.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>2. Information We Collect</h4>
+                    <p>When you submit a project inquiry or contact us via WhatsApp, we collect only the necessary technical details: your full name, email address, phone number, and project specifications.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>3. How Information Is Used</h4>
+                    <p>Your details are exclusively used to prepare architectural proposals, provide technical assessments, schedule consultations, and deliver engineering updates. We never sell, rent, or trade your personal data to third parties.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>4. Data Security</h4>
+                    <p>We implement enterprise-grade encryption and secure protocols across our hardware and software pipelines to protect your proprietary schematics and intellectual property.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>5. Contact Our Privacy Officer</h4>
+                    <p>For any inquiries regarding data protection or to request information removal, email us at <strong style={{ color: '#60a5fa' }}>infozerotozetta@gmail.com</strong>.</p>
+                  </div>
+                </div>
+              )}
+
+              {activePolicyModal === 'terms' && (
+                <div>
+                  <div className="policy-section">
+                    <h4>1. Services Agreement</h4>
+                    <p>ZeroToZetta provides specialized services in Artificial Intelligence & Machine Learning model engineering, custom IoT printed circuit board (PCB) design, embedded firmware programming, scalable web systems, and academic mentoring.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>2. Intellectual Property</h4>
+                    <p>Upon final settlement and project delivery, all custom developed software codebases, firmware binaries, and hardware PCB Gerber design files become the exclusive intellectual property of the commissioning client.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>3. Quotations & Milestone Payments</h4>
+                    <p>Project milestones, hardware component procurement, and delivery schedules are agreed upon in advance. Hardware development commences upon initial component procurement clearance.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>4. Support & Warranty</h4>
+                    <p>We provide ongoing technical support and maintenance for all deployed software systems and hardware prototypes as outlined in respective project agreements.</p>
+                  </div>
+                  <div className="policy-section">
+                    <h4>5. Jurisdiction</h4>
+                    <p>Any disputes or legal matters shall be governed under the jurisdiction of the courts of Erode, Tamil Nadu, India.</p>
+                  </div>
+                </div>
+              )}
+
+              {activePolicyModal === 'cookies' && (
+                <div>
+                  <p style={{ marginBottom: '1.4rem' }}>Manage your cookie preferences below. Essential cookies are required for website core features, security, and WhatsApp integration.</p>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <div style={{ padding: '1rem', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(59,130,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <Lock size={16} style={{ color: '#60a5fa' }} />
+                          <span>Essential & Security Cookies</span>
+                        </div>
+                        <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '2px' }}>Required for site security, spam protection, and WhatsApp routing.</div>
+                      </div>
+                      <span style={{ fontSize: '0.8rem', color: '#4ade80', fontWeight: 700 }}>Always Active</span>
+                    </div>
+
+                    <div style={{ padding: '1rem', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(59,130,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ fontWeight: 700, color: '#fff' }}>Analytics & Performance</div>
+                        <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '2px' }}>Helps us measure site performance and page load speed anonymously.</div>
+                      </div>
+                      <input 
+                        type="checkbox" 
+                        checked={cookiePreferences.analytics} 
+                        onChange={e => setCookiePreferences({ ...cookiePreferences, analytics: e.target.checked })} 
+                        style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#2563eb' }}
+                      />
+                    </div>
+
+                    <div style={{ padding: '1rem', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(59,130,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ fontWeight: 700, color: '#fff' }}>Social & Marketing Features</div>
+                        <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '2px' }}>Enables social feed previews and video demo embeds.</div>
+                      </div>
+                      <input 
+                        type="checkbox" 
+                        checked={cookiePreferences.marketing} 
+                        onChange={e => setCookiePreferences({ ...cookiePreferences, marketing: e.target.checked })} 
+                        style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#2563eb' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="policy-modal-footer">
+              {activePolicyModal === 'cookies' ? (
+                <button onClick={handleSaveCustomCookies} className="btn-primary" style={{ padding: '0.55rem 1.4rem', fontSize: '0.88rem' }}>
+                  Save Preferences
+                </button>
+              ) : (
+                <button onClick={() => setActivePolicyModal(null)} className="btn-secondary" style={{ padding: '0.55rem 1.4rem', fontSize: '0.88rem' }}>
+                  Close
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 404 Fallback Screen Overlay if triggered */}
+      {is404 && (
+        <div style={{ position: 'fixed', inset: 0, background: '#06090e', zIndex: 120, overflowY: 'auto' }}>
+          <div className="not-found-screen">
+            <div className="not-found-code">404</div>
+            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#fff', marginBottom: '0.8rem' }}>
+              System Coordinate Not Found
+            </h2>
+            <p style={{ color: '#94a3b8', maxWidth: '480px', fontSize: '1rem', lineHeight: 1.6, marginBottom: '2rem' }}>
+              The requested page or resource has been shifted in cyber space. Return to the main portal or contact our engineering team directly.
+            </p>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <button 
+                onClick={() => { window.location.hash = ''; setIs404(false); }} 
+                className="btn-primary"
+              >
+                <span>Return to ZeroToZetta Home</span>
+                <ArrowRight size={18} />
+              </button>
+              <a href="https://wa.me/919843494975" target="_blank" rel="noreferrer" className="btn-secondary">
+                <span>WhatsApp Support</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
