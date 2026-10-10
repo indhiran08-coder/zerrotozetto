@@ -192,7 +192,7 @@ export default function App() {
   };
 
   const getWhatsAppUrl = () => {
-    const phoneNumber = "919843494975";
+    const phoneNumber = "917604883377";
     const text = 
       `*New Project Inquiry - ZeroToZetta*\n\n` +
       `👤 *Name:* ${formData.name || 'Not provided'}\n` +
@@ -1303,8 +1303,8 @@ export default function App() {
               <Phone size={18} />
               <span>CALL US</span>
             </div>
-            <a href="tel:9843494975" style={{ color: '#fff', fontSize: '1rem', fontWeight: 600, textDecoration: 'none', display: 'block' }}>
-              +91 98434 94975
+            <a href="tel:7604883377" style={{ color: '#fff', fontSize: '1rem', fontWeight: 600, textDecoration: 'none', display: 'block' }}>
+              +91 76048 83377
             </a>
             <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '4px' }}>Direct phone inquiry</div>
           </div>
@@ -1382,8 +1382,8 @@ export default function App() {
               </div>
               <div>
                 <div style={{ fontSize: '0.82rem', color: '#64748b' }}>PHONE & WHATSAPP</div>
-                <a href="https://wa.me/919843494975" target="_blank" rel="noreferrer" style={{ fontWeight: 600, color: '#4ade80', textDecoration: 'none' }}>
-                  +91 98434 94975
+                <a href="https://wa.me/917604883377" target="_blank" rel="noreferrer" style={{ fontWeight: 600, color: '#4ade80', textDecoration: 'none' }}>
+                  +91 76048 83377
                 </a>
                 <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Instant Technical Consultation</div>
               </div>
@@ -1409,7 +1409,7 @@ export default function App() {
                 </div>
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#fff', marginBottom: '0.6rem' }}>Inquiry Prepared!</h3>
                 <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '440px', margin: '0 auto 1.5rem' }}>
-                  WhatsApp should open automatically with your project details pre-filled. If it didn't open, click below to chat directly with our team at <strong>+91 98434 94975</strong>:
+                  WhatsApp should open automatically with your project details pre-filled. If it didn't open, click below to chat directly with our team at <strong>+91 76048 83377</strong>:
                 </p>
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                   <a 
@@ -1552,7 +1552,7 @@ export default function App() {
             </p>
             <div style={{ display: 'flex', gap: '0.8rem' }}>
               <a 
-                href="https://wa.me/919843494975" 
+                href="https://wa.me/917604883377" 
                 target="_blank" 
                 rel="noreferrer"
                 style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(34,197,94,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4ade80', textDecoration: 'none' }}
@@ -1577,7 +1577,7 @@ export default function App() {
                 <Mail size={18} />
               </a>
               <a 
-                href="tel:9843494975"
+                href="tel:7604883377"
                 style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(59,130,246,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#cbd5e1', textDecoration: 'none' }}
                 aria-label="Phone"
               >
@@ -1622,7 +1622,7 @@ export default function App() {
               ZeroToZetta Technologies<br />
               Erode, Tamil Nadu, India<br />
               <a href="mailto:infozerotozetta@gmail.com" style={{ color: '#60a5fa', textDecoration: 'none' }}>infozerotozetta@gmail.com</a><br />
-              <a href="tel:9843494975" style={{ color: '#cbd5e1', textDecoration: 'none' }}>+91 98434 94975</a>
+              <a href="tel:7604883377" style={{ color: '#cbd5e1', textDecoration: 'none' }}>+91 76048 83377</a>
             </div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '4px 10px', borderRadius: '6px', background: 'rgba(37,99,235,0.15)', color: '#93c5fd', fontSize: '0.75rem', border: '1px solid rgba(59,130,246,0.3)' }}>
               <span className="pulse-dot"></span>
@@ -1672,7 +1672,7 @@ export default function App() {
         </button>
 
         <a 
-          href="https://wa.me/919843494975" 
+          href="https://wa.me/917604883377" 
           target="_blank" 
           rel="noreferrer"
           className="floating-whatsapp-btn"
@@ -1862,7 +1862,7 @@ export default function App() {
                 <span>Return to ZeroToZetta Home</span>
                 <ArrowRight size={18} />
               </button>
-              <a href="https://wa.me/919843494975" target="_blank" rel="noreferrer" className="btn-secondary">
+              <a href="https://wa.me/917604883377" target="_blank" rel="noreferrer" className="btn-secondary">
                 <span>WhatsApp Support</span>
               </a>
             </div>

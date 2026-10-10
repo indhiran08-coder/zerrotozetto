@@ -64,7 +64,7 @@ The optimized bundle will be generated in the `dist/` directory, ready for deplo
 - **Location:** Erode, Tamil Nadu, India
 - **Email:** [infozerotozetta@gmail.com](mailto:infozerotozetta@gmail.com)
 - **Instagram:** [@zerotozetta](https://instagram.com/zerotozetta)
-- **Phone:** +91 98434 94975
+- **Phone:** +91 76048 83377
 
 ---
 
