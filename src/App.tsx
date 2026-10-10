@@ -80,7 +80,7 @@ export default function App() {
     }, 1200);
   };
 
-  // 6 Core Service categories matching Phoenova with rich item breakdowns
+  // 5 Core Service categories matching Phoenova with rich item breakdowns
   const servicesList = [
     {
       id: "ai-solutions",
@@ -135,24 +135,6 @@ export default function App() {
         "Speed Optimization & SEO"
       ],
       techStack: ["React", "Next.js", "Tailwind CSS", "Node.js", "Vercel", "PostgreSQL"]
-    },
-    {
-      id: "software-solutions",
-      category: "Business Software Systems",
-      subtitle: "Tailored Management Solutions",
-      icon: <Layers size={26} />,
-      desc: "Enterprise management software, point of sale (POS) systems, and automation software designed specifically for your organization's workflow.",
-      items: [
-        "Inventory Management Systems",
-        "Billing & Invoice Software",
-        "Employee & Attendance Systems",
-        "Hospital & Clinic Management",
-        "School & College Management",
-        "Restaurant POS Solutions",
-        "Custom CRM & ERP Portals",
-        "Database Architecture & Backups"
-      ],
-      techStack: ["Electron", "Node.js", "Go", "PostgreSQL", "Redis", "Docker"]
     },
     {
       id: "mobile-apps",
@@ -293,11 +275,11 @@ export default function App() {
   // Project Showcase matching Phoenova
   const projects = [
     {
-      title: "Smart Inventory & Warehouse Management",
+      title: "Real-Time Telemetry & Operations Dashboard",
       cat: "web",
-      desc: "Complete end-to-end inventory tracking platform featuring real-time barcode telemetry, automated reordering, and multi-warehouse analytics.",
+      desc: "Cloud-connected operations platform featuring live sensor telemetry, automated alerts, and responsive multi-device analytics.",
       tech: ["React", "Node.js", "PostgreSQL", "Tailwind"],
-      highlight: "Enterprise Automation"
+      highlight: "Web Application"
     },
     {
       title: "Edge AI Industrial Vision Defect Detection",
@@ -307,18 +289,18 @@ export default function App() {
       highlight: "Sub-10ms Inference"
     },
     {
-      title: "Hospital & Clinical Management Suite",
+      title: "High-Performance E-Commerce Platform",
       cat: "web",
-      desc: "Comprehensive hospital management portal handling patient records, doctor scheduling, electronic prescriptions, and pharmacy billing.",
-      tech: ["Next.js", "Node.js", "MySQL", "Docker"],
-      highlight: "Clinical Operations"
+      desc: "Modern digital storefront featuring sub-second page loads, real-time product catalogs, seamless payment gateway integration, and customer order tracking.",
+      tech: ["Next.js", "React", "Node.js", "Tailwind"],
+      highlight: "Web Application"
     },
     {
-      title: "Restaurant POS & Cloud Billing System",
+      title: "Interactive Analytics & Monitoring Dashboard",
       cat: "web",
-      desc: "High-speed point of sale desktop and web application with thermal printer drivers, table management, and real-time revenue analytics.",
-      tech: ["Electron", "React", "SQLite", "Tailwind"],
-      highlight: "Point of Sale"
+      desc: "Rich data visualization portal providing real-time telemetry analytics, interactive charts, and role-based client management.",
+      tech: ["React", "TypeScript", "Tailwind", "PostgreSQL"],
+      highlight: "Cloud Platform"
     },
     {
       title: "IoT Environmental Telemetry Gateway",
@@ -366,11 +348,11 @@ export default function App() {
   const faqs = [
     {
       q: "What services do you offer?",
-      a: "ZeroToZetta provides end-to-end technology solutions: AI & Machine Learning, Custom IoT Hardware & PCB Design, Web Application Development, Enterprise Management Software, Mobile Apps, and Engineering College Project Assistance."
+      a: "ZeroToZetta provides end-to-end technology solutions: AI & Machine Learning, Custom IoT Hardware & PCB Design, Web Application Development, Mobile Apps, and Engineering College Project Assistance."
     },
     {
       q: "How long does a project take?",
-      a: "Project timelines depend on complexity. Small websites or prototypes typically take 1–3 weeks. Custom hardware, enterprise software, or full-stack platforms generally take 4–8 weeks with continuous milestone demos."
+      a: "Project timelines depend on complexity. Small websites or prototypes typically take 1–3 weeks. Custom hardware, mobile applications, or full-stack web platforms generally take 4–8 weeks with continuous milestone demos."
     },
     {
       q: "Do you provide 24/7 support and maintenance?",
@@ -526,7 +508,7 @@ export default function App() {
             </h1>
 
             <p className="hero-paragraph">
-              Helping businesses grow with intelligent automation, software solutions, professional IT support, custom IoT hardware, and modern websites.
+              Helping businesses grow with intelligent AI automation, modern websites & mobile apps, custom IoT hardware, and professional engineering support.
             </p>
 
             <div className="hero-actions">
@@ -580,7 +562,7 @@ export default function App() {
 
             <div 
               className="orbit-node" 
-              style={{ top: '28%', right: '4%' }}
+              style={{ top: '32%', right: '4%' }}
               onClick={() => setSelectedServiceModal(servicesList[1])}
             >
               <Cpu size={20} />
@@ -589,7 +571,7 @@ export default function App() {
 
             <div 
               className="orbit-node" 
-              style={{ bottom: '15%', right: '12%' }}
+              style={{ bottom: '8%', right: '16%' }}
               onClick={() => setSelectedServiceModal(servicesList[2])}
             >
               <Globe size={20} />
@@ -598,17 +580,8 @@ export default function App() {
 
             <div 
               className="orbit-node" 
-              style={{ bottom: '8%', left: '38%' }}
+              style={{ bottom: '8%', left: '16%' }}
               onClick={() => setSelectedServiceModal(servicesList[3])}
-            >
-              <Layers size={20} />
-              <span className="orbit-node-label">Software</span>
-            </div>
-
-            <div 
-              className="orbit-node" 
-              style={{ bottom: '26%', left: '4%' }}
-              onClick={() => setSelectedServiceModal(servicesList[4])}
             >
               <Smartphone size={20} />
               <span className="orbit-node-label">Mobile</span>
@@ -616,8 +589,8 @@ export default function App() {
 
             <div 
               className="orbit-node" 
-              style={{ top: '24%', left: '8%' }}
-              onClick={() => setSelectedServiceModal(servicesList[5])}
+              style={{ top: '32%', left: '4%' }}
+              onClick={() => setSelectedServiceModal(servicesList[4])}
             >
               <HardDrive size={20} />
               <span className="orbit-node-label">Academic</span>
@@ -1354,7 +1327,7 @@ export default function App() {
               </div>
             </div>
             <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6, maxWidth: '320px', marginBottom: '1.2rem' }}>
-              From Zero to Zetta — Building the Future. Innovating, engineering, and scaling next-gen AI, smart IoT hardware, and custom software systems.
+              From Zero to Zetta — Building the Future. Innovating, engineering, and scaling next-gen AI, smart IoT hardware, modern web platforms, and mobile apps.
             </p>
             <div style={{ display: 'flex', gap: '0.8rem' }}>
               <a 
@@ -1406,7 +1379,6 @@ export default function App() {
               <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>AI & Machine Learning</a></li>
               <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>IoT & Smart Hardware</a></li>
               <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Web Development</a></li>
-              <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Business Software & POS</a></li>
               <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>Mobile Applications</a></li>
               <li><a href="#services" style={{ color: 'inherit', textDecoration: 'none' }}>College Projects</a></li>
             </ul>

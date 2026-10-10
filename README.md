@@ -1,6 +1,6 @@
 # ZeroToZetta — Official Website
 
-> **ZeroToZetta Technologies** • Transforming Businesses Through Technology, Artificial Intelligence, IoT Hardware, and Software Solutions.
+> **ZeroToZetta Technologies** • Transforming Businesses Through Technology, Artificial Intelligence, IoT Hardware, and Scalable Web & Mobile Solutions.
 
 Based in **Erode, Tamil Nadu, India**, ZeroToZetta is a premier technology & engineering studio delivering turnkey solutions across AI/ML, custom PCB hardware, embedded firmware, scalable web platforms, and mobile applications.
 
