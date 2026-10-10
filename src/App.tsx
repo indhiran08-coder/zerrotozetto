@@ -13,7 +13,6 @@ import {
   Zap,
   CheckCircle2,
   Sparkles,
-  Send,
   MessageSquare,
   Users,
   HardDrive,
@@ -34,6 +33,12 @@ const InstagramIcon = ({ size = 20 }: { size?: number }) => (
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+);
+
+const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.888 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.414z"/>
   </svg>
 );
 
@@ -72,12 +77,29 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const getWhatsAppUrl = () => {
+    const phoneNumber = "919843494975";
+    const text = 
+      `*New Project Inquiry - ZeroToZetta*\n\n` +
+      `👤 *Name:* ${formData.name || 'Not provided'}\n` +
+      `📧 *Email:* ${formData.email || 'Not provided'}\n` +
+      `📱 *Phone:* ${formData.phone || 'Not provided'}\n` +
+      `🛠 *Service:* ${formData.service}\n\n` +
+      `💬 *Project Details:*\n${formData.message || 'Interested in technical consultation'}`;
+
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+  };
+
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
+
+    const whatsappUrl = getWhatsAppUrl();
+
     setTimeout(() => {
       setFormStatus('success');
-    }, 1200);
+      window.open(whatsappUrl, '_blank');
+    }, 600);
   };
 
   // 5 Core Service categories matching Phoenova with rich item breakdowns
@@ -1198,6 +1220,19 @@ export default function App() {
               </div>
             </div>
 
+            <div className="info-item">
+              <div className="info-icon" style={{ background: 'rgba(34,197,94,0.15)', borderColor: 'rgba(34,197,94,0.3)', color: '#4ade80' }}>
+                <Phone size={22} />
+              </div>
+              <div>
+                <div style={{ fontSize: '0.82rem', color: '#64748b' }}>PHONE & WHATSAPP</div>
+                <a href="https://wa.me/919843494975" target="_blank" rel="noreferrer" style={{ fontWeight: 600, color: '#4ade80', textDecoration: 'none' }}>
+                  +91 98434 94975
+                </a>
+                <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Instant Technical Consultation</div>
+              </div>
+            </div>
+
             <div style={{ marginTop: '2rem', padding: '1.2rem', borderRadius: '16px', background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(59,130,246,0.2)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#60a5fa', fontSize: '0.85rem', fontWeight: 600, marginBottom: '6px' }}>
                 <span className="pulse-dot"></span>
@@ -1213,19 +1248,31 @@ export default function App() {
           <div className="contact-form-card">
             {formStatus === 'success' ? (
               <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>
-                <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(37,99,235,0.2)', border: '1px solid #3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', color: '#60a5fa' }}>
+                <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(34,197,94,0.15)', border: '1px solid #22c55e', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', color: '#4ade80' }}>
                   <CheckCircle2 size={36} />
                 </div>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#fff', marginBottom: '0.6rem' }}>Message Transmitted!</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '420px', margin: '0 auto 1.5rem' }}>
-                  Thank you for contacting ZeroToZetta. Rishvanth SK and our technical team will review your project requirements and follow up at <strong>{formData.email}</strong> shortly.
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#fff', marginBottom: '0.6rem' }}>Inquiry Prepared!</h3>
+                <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '440px', margin: '0 auto 1.5rem' }}>
+                  WhatsApp should open automatically with your project details pre-filled. If it didn't open, click below to chat directly with our team at <strong>+91 98434 94975</strong>:
                 </p>
-                <button 
-                  onClick={() => setFormStatus('idle')}
-                  className="btn-secondary"
-                >
-                  Send Another Message
-                </button>
+                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <a 
+                    href={getWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', background: 'linear-gradient(135deg, #16a34a, #15803d)' }}
+                  >
+                    <WhatsAppIcon size={18} />
+                    <span>Open in WhatsApp</span>
+                  </a>
+                  <button 
+                    onClick={() => setFormStatus('idle')}
+                    className="btn-secondary"
+                  >
+                    Edit / Send Another
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleContactSubmit}>
@@ -1296,17 +1343,17 @@ export default function App() {
                   type="submit" 
                   disabled={formStatus === 'sending'}
                   className="btn-primary" 
-                  style={{ width: '100%', padding: '0.85rem' }}
+                  style={{ width: '100%', padding: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem' }}
                 >
                   {formStatus === 'sending' ? (
                     <>
                       <Activity size={18} className="animate-spin" />
-                      <span>Transmitting Message...</span>
+                      <span>Connecting to WhatsApp...</span>
                     </>
                   ) : (
                     <>
-                      <Send size={18} />
-                      <span>Send Message</span>
+                      <WhatsAppIcon size={18} />
+                      <span>Send via WhatsApp</span>
                     </>
                   )}
                 </button>
@@ -1330,6 +1377,15 @@ export default function App() {
               From Zero to Zetta — Building the Future. Innovating, engineering, and scaling next-gen AI, smart IoT hardware, modern web platforms, and mobile apps.
             </p>
             <div style={{ display: 'flex', gap: '0.8rem' }}>
+              <a 
+                href="https://wa.me/919843494975" 
+                target="_blank" 
+                rel="noreferrer"
+                style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(15,23,42,0.8)', border: '1px solid rgba(34,197,94,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4ade80', textDecoration: 'none' }}
+                aria-label="WhatsApp"
+              >
+                <WhatsAppIcon size={18} />
+              </a>
               <a 
                 href="https://instagram.com/zerotozetta" 
                 target="_blank" 
