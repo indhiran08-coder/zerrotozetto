@@ -358,38 +358,190 @@
   margin-bottom: 3rem;
 }
 
-/* Orbit Graphic Visualizer (Responsive & Interactive) */
+/* Orbit Graphic Visualizer (Responsive & Interactive AI Live System) */
 .orbit-container {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  height: 460px;
+  max-width: 480px;
+  height: 480px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
 }
 
-.orbit-center-core {
+/* AI Radar Scanner Sweep */
+.orbit-radar-sweep {
+  position: absolute;
+  width: 410px;
+  height: 410px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg at 50% 50%, rgba(59, 130, 246, 0.22) 0deg, rgba(59, 130, 246, 0.06) 45deg, transparent 75deg);
+  animation: radarSweep 7s linear infinite;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, transparent 72px, black 78px);
+  -webkit-mask-image: radial-gradient(circle at center, transparent 72px, black 78px);
+}
+
+@keyframes radarSweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Concentric Neural Energy Waves Emitted from Core */
+.orbit-pulse-wave {
+  position: absolute;
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  background: radial-gradient(circle, #2563eb 0%, #0d1b38 80%);
+  border: 1.5px solid rgba(96, 165, 250, 0.7);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), inset 0 0 15px rgba(59, 130, 246, 0.2);
+  pointer-events: none;
+  animation: neuralPulseWave 4.5s cubic-bezier(0.1, 0.7, 0.1, 1) infinite;
+}
+
+.orbit-pulse-wave:nth-child(2) {
+  animation-delay: 1.5s;
+}
+
+.orbit-pulse-wave:nth-child(3) {
+  animation-delay: 3s;
+}
+
+@keyframes neuralPulseWave {
+  0% {
+    width: 110px;
+    height: 110px;
+    opacity: 0.9;
+    transform: scale(1);
+    border-color: rgba(147, 197, 253, 0.9);
+  }
+  100% {
+    width: 440px;
+    height: 440px;
+    opacity: 0;
+    transform: scale(1);
+    border-color: rgba(37, 99, 235, 0);
+  }
+}
+
+/* SVG Laser Beam Connectors */
+.orbit-svg-connectors {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.orbit-laser-line {
+  stroke: rgba(59, 130, 246, 0.35);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 8;
+  animation: laserStream 2.5s linear infinite;
+}
+
+.orbit-laser-glow {
+  stroke: rgba(96, 165, 250, 0.15);
+  stroke-width: 4;
+}
+
+@keyframes laserStream {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+/* Orbiting Photon Particles */
+.orbit-particle-track {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: spinSlow 18s linear infinite;
+}
+
+.orbit-particle-track-rev {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: spinReverse 14s linear infinite;
+}
+
+.orbit-photon {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #93c5fd;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #3b82f6, 0 0 30px #2563eb;
+}
+
+.orbit-photon-2 {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #60a5fa;
+  box-shadow: 0 0 10px #3b82f6, 0 0 20px #2563eb;
+}
+
+/* Center Core with AI Pulse */
+.orbit-center-core {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1d4ed8 0%, #0c1833 70%, #06090e 100%);
   border: 2px solid #60a5fa;
-  box-shadow: 0 0 45px rgba(37, 99, 235, 0.7), inset 0 0 20px rgba(147, 197, 253, 0.4);
+  box-shadow: 0 0 45px rgba(37, 99, 235, 0.75), inset 0 0 24px rgba(147, 197, 253, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  z-index: 10;
+  z-index: 15;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: coreAuraGlow 4s ease-in-out infinite;
+}
+
+@keyframes coreAuraGlow {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(37, 99, 235, 0.7), inset 0 0 20px rgba(147, 197, 253, 0.4);
+    border-color: #60a5fa;
+  }
+  50% {
+    box-shadow: 0 0 65px rgba(59, 130, 246, 0.95), 0 0 100px rgba(37, 99, 235, 0.4), inset 0 0 30px rgba(191, 219, 254, 0.7);
+    border-color: #93c5fd;
+  }
 }
 
 .orbit-center-core:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 60px rgba(37, 99, 235, 0.9);
+  box-shadow: 0 0 75px rgba(59, 130, 246, 1), 0 0 120px rgba(37, 99, 235, 0.6);
+}
+
+.orbit-core-ring-spin {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 1px dashed rgba(96, 165, 250, 0.55);
+  animation: spinSlow 12s linear infinite;
+  pointer-events: none;
 }
 
 .orbit-core-logo {
@@ -397,25 +549,32 @@
   height: 58px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+  box-shadow: 0 0 22px rgba(59, 130, 246, 0.8);
   margin-bottom: 3px;
-  border: 1px solid rgba(147, 197, 253, 0.5);
+  border: 1.5px solid rgba(147, 197, 253, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.orbit-center-core:hover .orbit-core-logo {
+  transform: scale(1.06);
 }
 
 .orbit-core-text {
   font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: #ffffff;
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
 }
 
+/* Orbit Rings */
 .orbit-ring-1 {
   position: absolute;
   width: 260px;
   height: 260px;
   border-radius: 50%;
   border: 1px dashed rgba(59, 130, 246, 0.35);
-  animation: spinSlow 30s linear infinite;
+  animation: spinSlow 35s linear infinite;
   pointer-events: none;
 }
 
@@ -439,30 +598,59 @@
   to { transform: rotate(0deg); }
 }
 
+/* Capability Nodes with Floating AI Micro-Motion */
 .orbit-node {
   position: absolute;
-  width: 58px;
-  height: 58px;
+  width: 60px;
+  height: 60px;
   border-radius: 16px;
-  background: #091222;
-  border: 1px solid #3b82f6;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(37, 99, 235, 0.25);
+  background: rgba(9, 18, 34, 0.92);
+  border: 1.5px solid #3b82f6;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), 0 0 18px rgba(37, 99, 235, 0.35);
+  backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #60a5fa;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 12;
 }
 
+.orbit-node-1 { animation: floatNode1 4.5s ease-in-out infinite; }
+.orbit-node-2 { animation: floatNode2 5.2s ease-in-out infinite; }
+.orbit-node-3 { animation: floatNode3 4.8s ease-in-out infinite; }
+.orbit-node-4 { animation: floatNode4 5.5s ease-in-out infinite; }
+.orbit-node-5 { animation: floatNode5 4.2s ease-in-out infinite; }
+
+@keyframes floatNode1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes floatNode2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-5px) translateX(4px); }
+}
+@keyframes floatNode3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(6px) translateX(3px); }
+}
+@keyframes floatNode4 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(6px) translateX(-3px); }
+}
+@keyframes floatNode5 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-5px) translateX(-4px); }
+}
+
 .orbit-node:hover {
-  transform: scale(1.18);
+  transform: scale(1.2) translateY(-4px) !important;
   background: #172a4d;
   border-color: #93c5fd;
   color: #ffffff;
-  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
+  box-shadow: 0 14px 34px rgba(37, 99, 235, 0.7), 0 0 25px rgba(96, 165, 250, 0.6);
 }
 
 .orbit-node-label {
@@ -1215,15 +1403,31 @@
 
   /* Responsive Orbit Graphic on Mobile */
   .orbit-container {
-    max-width: 310px;
-    height: 310px;
+    max-width: 320px;
+    height: 320px;
+  }
+  .orbit-radar-sweep {
+    width: 290px;
+    height: 290px;
+  }
+  .orbit-particle-track {
+    width: 290px;
+    height: 290px;
+  }
+  .orbit-particle-track-rev {
+    width: 190px;
+    height: 190px;
   }
   .orbit-center-core {
-    width: 82px;
-    height: 82px;
+    width: 84px;
+    height: 84px;
   }
   .orbit-center-core span {
-    font-size: 0.65rem !important;
+    font-size: 0.6rem !important;
+  }
+  .orbit-core-logo {
+    width: 44px;
+    height: 44px;
   }
   .orbit-ring-1 {
     width: 190px;
@@ -1303,4 +1507,49 @@
     gap: 1rem;
     text-align: center;
   }
+}
+
+/* ===================================================
+   Scroll Landing & Fade-in Reveal Animations
+   =================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
+.stagger-4 { transition-delay: 0.32s; }
+.stagger-5 { transition-delay: 0.40s; }
+.stagger-6 { transition-delay: 0.48s; }
+
+/* Subtle AI holographic scanner card effect */
+.ai-interactive-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-interactive-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.ai-interactive-card:hover::after {
+  opacity: 1;
 }

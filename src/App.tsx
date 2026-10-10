@@ -74,7 +74,29 @@ export default function App() {
         speed: 4
       }));
     }, 40);
-    return () => clearInterval(interval);
+
+    // Scroll Landing & Fade-in Intersection Observer
+    const observerCallback: IntersectionObserverCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    revealElements.forEach(el => observer.observe(el));
+
+    return () => {
+      clearInterval(interval);
+      observer.disconnect();
+    };
   }, []);
 
   const getWhatsAppUrl = () => {
@@ -540,20 +562,55 @@ export default function App() {
             </div>
           </div>
 
-          {/* Interactive Orbit Graphic Visualizer */}
+          {/* Interactive Live AI Orbit Graphic Visualizer */}
           <div className="orbit-container">
+            {/* AI Radar Scanner Sweep */}
+            <div className="orbit-radar-sweep"></div>
+
+            {/* Concentric Neural Energy Pulse Waves */}
+            <div className="orbit-pulse-wave"></div>
+            <div className="orbit-pulse-wave"></div>
+            <div className="orbit-pulse-wave"></div>
+
+            {/* SVG Laser Stream Connectors */}
+            <svg className="orbit-svg-connectors" viewBox="0 0 480 480">
+              {/* Outer Glow Lines */}
+              <line x1="240" y1="240" x2="240" y2="48" className="orbit-laser-glow" />
+              <line x1="240" y1="240" x2="410" y2="160" className="orbit-laser-glow" />
+              <line x1="240" y1="240" x2="360" y2="400" className="orbit-laser-glow" />
+              <line x1="240" y1="240" x2="120" y2="400" className="orbit-laser-glow" />
+              <line x1="240" y1="240" x2="70" y2="160" className="orbit-laser-glow" />
+
+              {/* Animated Laser Pulses */}
+              <line x1="240" y1="240" x2="240" y2="48" className="orbit-laser-line" />
+              <line x1="240" y1="240" x2="410" y2="160" className="orbit-laser-line" />
+              <line x1="240" y1="240" x2="360" y2="400" className="orbit-laser-line" />
+              <line x1="240" y1="240" x2="120" y2="400" className="orbit-laser-line" />
+              <line x1="240" y1="240" x2="70" y2="160" className="orbit-laser-line" />
+            </svg>
+
+            {/* Concentric Orbit Rings */}
             <div className="orbit-ring-2"></div>
             <div className="orbit-ring-1"></div>
 
-            {/* Center Core */}
+            {/* Orbiting Photon Particles */}
+            <div className="orbit-particle-track">
+              <div className="orbit-photon"></div>
+            </div>
+            <div className="orbit-particle-track-rev">
+              <div className="orbit-photon-2"></div>
+            </div>
+
+            {/* Center Core with Rotating Outer Spin Ring & AI Aura */}
             <div className="orbit-center-core" onClick={() => setSelectedServiceModal(servicesList[0])}>
+              <div className="orbit-core-ring-spin"></div>
               <img src="./logo.png" alt="ZeroToZetta Logo" className="orbit-core-logo" />
               <span className="orbit-core-text">ZEROTOZETTA</span>
             </div>
 
-            {/* Orbiting Capability Nodes */}
+            {/* Orbiting Capability Nodes with Individual AI Floating Motion */}
             <div 
-              className="orbit-node" 
+              className="orbit-node orbit-node-1" 
               style={{ top: '4%', left: '50%', transform: 'translateX(-50%)' }}
               onClick={() => setSelectedServiceModal(servicesList[0])}
             >
@@ -562,7 +619,7 @@ export default function App() {
             </div>
 
             <div 
-              className="orbit-node" 
+              className="orbit-node orbit-node-2" 
               style={{ top: '28%', right: '2%' }}
               onClick={() => setSelectedServiceModal(servicesList[1])}
             >
@@ -571,7 +628,7 @@ export default function App() {
             </div>
 
             <div 
-              className="orbit-node" 
+              className="orbit-node orbit-node-3" 
               style={{ bottom: '8%', right: '14%' }}
               onClick={() => setSelectedServiceModal(servicesList[2])}
             >
@@ -580,7 +637,7 @@ export default function App() {
             </div>
 
             <div 
-              className="orbit-node" 
+              className="orbit-node orbit-node-4" 
               style={{ bottom: '8%', left: '14%' }}
               onClick={() => setSelectedServiceModal(servicesList[3])}
             >
@@ -589,7 +646,7 @@ export default function App() {
             </div>
 
             <div 
-              className="orbit-node" 
+              className="orbit-node orbit-node-5" 
               style={{ top: '28%', left: '2%' }}
               onClick={() => setSelectedServiceModal(servicesList[4])}
             >
@@ -600,7 +657,7 @@ export default function App() {
         </div>
 
         {/* Global Stats Banner (100+ Projects, 99% Satisfaction, 24/7 Support, 4x Speed) */}
-        <div className="stats-banner">
+        <div className="stats-banner reveal-on-scroll">
           <div className="stat-item">
             <div className="stat-number">
               <span>{stats.projects}</span>
@@ -634,7 +691,7 @@ export default function App() {
 
       {/* About Section */}
       <section id="about" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Award size={14} />
             <span>About ZeroToZetta</span>
@@ -648,21 +705,21 @@ export default function App() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
-          <div className="glass-card" style={{ padding: '2rem', borderRadius: '18px' }}>
+          <div className="glass-card ai-interactive-card reveal-on-scroll stagger-1" style={{ padding: '2rem', borderRadius: '18px' }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '0.6rem' }}>Our Mission</h3>
             <p style={{ color: '#94a3b8', fontSize: '0.92rem', lineHeight: 1.6 }}>
               To empower modern businesses with intelligent AI automation, reliable IoT hardware, and robust web applications that drive tangible operational growth.
             </p>
           </div>
 
-          <div className="glass-card" style={{ padding: '2rem', borderRadius: '18px' }}>
+          <div className="glass-card ai-interactive-card reveal-on-scroll stagger-2" style={{ padding: '2rem', borderRadius: '18px' }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '0.6rem' }}>Silicon to Cloud</h3>
             <p style={{ color: '#94a3b8', fontSize: '0.92rem', lineHeight: 1.6 }}>
               We eliminate technical fragmentation by designing the physical circuit boards, programming microcontrollers, and building cloud backends all under one roof.
             </p>
           </div>
 
-          <div className="glass-card" style={{ padding: '2rem', borderRadius: '18px' }}>
+          <div className="glass-card ai-interactive-card reveal-on-scroll stagger-3" style={{ padding: '2rem', borderRadius: '18px' }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '0.6rem' }}>Student Mentorship</h3>
             <p style={{ color: '#94a3b8', fontSize: '0.92rem', lineHeight: 1.6 }}>
               We bridge academic curriculum and industrial reality, guiding engineering students through real-world AI, Machine Learning, and IoT major projects.
@@ -673,7 +730,7 @@ export default function App() {
 
       {/* Services Section with Interactive Modal Trigger */}
       <section id="services" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Cpu size={14} />
             <span>Our Services</span>
@@ -687,10 +744,10 @@ export default function App() {
         </div>
 
         <div className="services-grid">
-          {servicesList.map(srv => (
+          {servicesList.map((srv, srvIdx) => (
             <div 
               key={srv.id} 
-              className="service-card"
+              className={`service-card ai-interactive-card reveal-on-scroll stagger-${(srvIdx % 5) + 1}`}
               onClick={() => setSelectedServiceModal(srv)}
             >
               <div className="service-card-top">
@@ -796,7 +853,7 @@ export default function App() {
 
       {/* Why Choose Us Section (8 Cards) */}
       <section id="why-us" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <ShieldCheck size={14} />
             <span>Why Choose Us</span>
@@ -811,7 +868,7 @@ export default function App() {
 
         <div className="why-grid">
           {whyChooseUs.map((w, idx) => (
-            <div key={idx} className="why-card">
+            <div key={idx} className={`why-card ai-interactive-card reveal-on-scroll stagger-${(idx % 4) + 1}`}>
               <div className="why-icon-box">
                 {w.icon}
               </div>
@@ -824,7 +881,7 @@ export default function App() {
 
       {/* Our Work Process (6 Steps) */}
       <section id="process" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Layers size={14} />
             <span>How We Work</span>
@@ -839,7 +896,7 @@ export default function App() {
 
         <div className="process-grid">
           {workProcess.map((p, idx) => (
-            <div key={idx} className="process-card">
+            <div key={idx} className={`process-card ai-interactive-card reveal-on-scroll stagger-${(idx % 3) + 1}`}>
               <div className="process-number">{p.step}</div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '0.6rem' }}>{p.title}</h3>
               <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6 }}>{p.desc}</p>
@@ -850,7 +907,7 @@ export default function App() {
 
       {/* Tech Stack Section with Category Filter */}
       <section id="tech" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Code2 size={14} />
             <span>Our Toolbox</span>
@@ -863,7 +920,7 @@ export default function App() {
           </p>
         </div>
 
-        <div className="tech-tabs">
+        <div className="tech-tabs reveal-on-scroll">
           <button 
             className={`tech-tab ${activeTechFilter === 'all' ? 'active' : ''}`}
             onClick={() => setActiveTechFilter('all')}
@@ -890,9 +947,9 @@ export default function App() {
           </button>
         </div>
 
-        <div className="tech-grid">
+        <div className="tech-grid reveal-on-scroll">
           {filteredTech.map((tech, idx) => (
-            <div key={idx} className="tech-item-card">
+            <div key={idx} className="tech-item-card ai-interactive-card">
               <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(37,99,235,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#60a5fa', flexShrink: 0 }}>
                 <Code2 size={20} />
               </div>
@@ -906,7 +963,7 @@ export default function App() {
 
       {/* Project Showcase / Portfolio Section */}
       <section id="projects" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Sparkles size={14} />
             <span>Portfolio</span>
@@ -919,7 +976,7 @@ export default function App() {
           </p>
         </div>
 
-        <div className="tech-tabs" style={{ marginBottom: '2.5rem' }}>
+        <div className="tech-tabs reveal-on-scroll" style={{ marginBottom: '2.5rem' }}>
           <button 
             className={`tech-tab ${activeProjectFilter === 'all' ? 'active' : ''}`}
             onClick={() => setActiveProjectFilter('all')}
@@ -954,7 +1011,7 @@ export default function App() {
 
         <div className="projects-grid">
           {filteredProjects.map((p, idx) => (
-            <div key={idx} className="project-card">
+            <div key={idx} className={`project-card ai-interactive-card reveal-on-scroll stagger-${(idx % 3) + 1}`}>
               <div className="project-tag">{p.highlight}</div>
               <h3 className="project-title">{p.title}</h3>
               <p className="project-desc">{p.desc}</p>
@@ -970,7 +1027,7 @@ export default function App() {
 
       {/* Client Testimonials */}
       <section id="testimonials" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Star size={14} />
             <span>Client Feedback</span>
@@ -985,7 +1042,7 @@ export default function App() {
 
         <div className="testimonials-grid">
           {testimonials.map((t, idx) => (
-            <div key={idx} className="testimonial-card">
+            <div key={idx} className={`testimonial-card ai-interactive-card reveal-on-scroll stagger-${idx + 1}`}>
               <div style={{ display: 'flex', gap: '3px', color: '#f59e0b', marginBottom: '1.2rem' }}>
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="#f59e0b" />
@@ -1008,7 +1065,7 @@ export default function App() {
 
       {/* Leadership Spotlight (Rishvanth SK & Agalya N) */}
       <section className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Users size={14} />
             <span>Executive Team</span>
@@ -1022,7 +1079,7 @@ export default function App() {
         </div>
 
         <div className="team-grid">
-          <div className="team-card">
+          <div className="team-card ai-interactive-card reveal-on-scroll stagger-1">
             <div className="team-avatar-box">
               <span>RS</span>
             </div>
@@ -1041,7 +1098,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="team-card">
+          <div className="team-card ai-interactive-card reveal-on-scroll stagger-2">
             <div className="team-avatar-box">
               <span>AN</span>
             </div>
@@ -1064,7 +1121,7 @@ export default function App() {
 
       {/* Frequently Asked Questions (FAQ) */}
       <section id="faq" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <MessageSquare size={14} />
             <span>Got Questions?</span>
@@ -1077,7 +1134,7 @@ export default function App() {
           </p>
         </div>
 
-        <div className="faq-grid">
+        <div className="faq-grid reveal-on-scroll">
           {faqs.map((faq, idx) => (
             <div key={idx} className="faq-item">
               <button 
@@ -1106,7 +1163,7 @@ export default function App() {
 
       {/* Contact Section (With Phoenova 4-Box Quick Contact Channels) */}
       <section id="contact" className="section-wrapper">
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <div className="section-tag">
             <Mail size={14} />
             <span>Contact Us</span>
@@ -1120,8 +1177,8 @@ export default function App() {
         </div>
 
         {/* 4 Direct Contact Channel Cards (Phoenova Style) */}
-        <div className="contact-grid-top">
-          <div className="contact-channel-card">
+        <div className="contact-grid-top reveal-on-scroll">
+          <div className="contact-channel-card ai-interactive-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#60a5fa', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
               <Phone size={18} />
               <span>CALL US</span>
@@ -1132,7 +1189,7 @@ export default function App() {
             <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '4px' }}>Direct phone inquiry</div>
           </div>
 
-          <div className="contact-channel-card">
+          <div className="contact-channel-card ai-interactive-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#60a5fa', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
               <Mail size={18} />
               <span>EMAIL US</span>
@@ -1143,7 +1200,7 @@ export default function App() {
             <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '4px' }}>Response within 24h</div>
           </div>
 
-          <div className="contact-channel-card">
+          <div className="contact-channel-card ai-interactive-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#60a5fa', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
               <InstagramIcon size={18} />
               <span>INSTAGRAM</span>
@@ -1154,7 +1211,7 @@ export default function App() {
             <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '4px' }}>Follow builds & demos</div>
           </div>
 
-          <div className="contact-channel-card">
+          <div className="contact-channel-card ai-interactive-card">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#60a5fa', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
               <Clock size={18} />
               <span>WORKING HOURS</span>
@@ -1167,7 +1224,7 @@ export default function App() {
         </div>
 
         {/* Contact Form & Facility Information */}
-        <div className="contact-layout">
+        <div className="contact-layout reveal-on-scroll">
           <div className="contact-info-card">
             <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#fff', marginBottom: '1.2rem' }}>
               ZeroToZetta Headquarters
